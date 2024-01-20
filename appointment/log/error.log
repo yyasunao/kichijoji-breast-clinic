@@ -1,0 +1,11 @@
+[01-Nov-2016 19:38:19 Asia/Tokyo] PHP Warning:  fopen(/appointment/input.html): failed to open stream: No such file or directory in /var/www/wordpress/appointment/lib/tinyTemplate.php on line 77
+[01-Nov-2016 19:38:19 Asia/Tokyo] PHP Stack trace:
+[01-Nov-2016 19:38:19 Asia/Tokyo] PHP   1. {main}() /var/www/wordpress/appointment/index.php:0
+[01-Nov-2016 19:38:19 Asia/Tokyo] PHP   2. TransmitMail->run() /var/www/wordpress/appointment/index.php:22
+[01-Nov-2016 19:38:19 Asia/Tokyo] PHP   3. TransmitMail->setTemplateAndSendMail() /var/www/wordpress/appointment/lib/TransmitMail.php:276
+[01-Nov-2016 19:38:19 Asia/Tokyo] PHP   4. tinyTemplate->fetch() /var/www/wordpress/appointment/lib/TransmitMail.php:1044
+[01-Nov-2016 19:38:19 Asia/Tokyo] PHP   5. fopen() /var/www/wordpress/appointment/lib/tinyTemplate.php:77
+[01-Nov-2016 19:49:05 Asia/Tokyo] PHP Parse error:  syntax error, unexpected '(', expecting ',' or ';' in /var/www/wordpress/appointment/lib/tinyTemplate.php on line 11
+[01-Nov-2016 19:49:05 Asia/Tokyo] PHP Stack trace:
+[01-Nov-2016 19:49:05 Asia/Tokyo] PHP   1. {main}() /var/www/wordpress/appointment/index.php:0
+[01-Nov-2016 19:49:05 Asia/Tokyo] PHP   2. TransmitMail->__construct() /var/www/wordpress/appointment/index.php:20

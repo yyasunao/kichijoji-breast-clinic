@@ -1,0 +1,230 @@
+{$get_the_content}
+
+{$to_email}
+
+{if:$topics_reception_flg}
+<section class="info">
+<div class="topics-reception">
+{$topics_reception}
+</div>
+</section>
+{/if:$topics_reception_flg}
+
+
+<section class="flow-block">
+<ol class="flow">
+<li class="current">入力</li>
+<li>確認</li>
+<li>完了</li>
+</ol>
+</section>
+
+
+<div id="appointment-form">
+	{if:$global_errors}
+	<div class="error-block">
+	<h1>入力内容に誤りがあります。</em></h1>
+		<ul>
+			{loop:$global_errors}
+			<li><em>{$global_errors[]}</em></li>
+			{/loop:$global_errors}
+		</ul>
+</div>
+	{/if:$global_errors}
+	<form method="post" id="form" action="{$form_action_url}#breadcrumbs" enctype="multipart/form-data">
+	<input type="hidden" name="csrf_token" value="{$csrf_token}">
+	<section class="date">
+	<h3>ご希望の診察日時</h3>
+	<table class="tb01" id="reception-date">
+	<tbody>
+	<tr>
+	<th><label for="preferred1"><span>診察希望日</span>（第一希望）</label><span class="req">(必須)</span></th>
+		<td id="date-0">
+			<div class="date-area">
+			<input class="datepicker middle validate[required]" type="text" name="診察希望日（第一希望）" value="{$診察希望日（第一希望）}" id="preferred1" readonly="readonly">
+			<input type="hidden" name="required[]" value="診察希望日（第一希望）">
+			{if:$required.診察希望日（第一希望）}
+			<div class="error"><em>{$required.診察希望日（第一希望）}</em></div>
+			{/if:$required.診察希望日（第一希望）}
+			</div>
+			<div class="time-area">
+			</div>
+		</td>
+	</tr>
+	<tr>
+	<th><label for="preferred2"><span>診察希望日</span>（第二希望）</label><span class="req">(必須)</span></th>
+		<td id="date-1">
+			<div class="date-area">
+			<input class="datepicker middle validate[required]" type="text" name="診察希望日（第二希望）" value="{$診察希望日（第二希望）}" id="preferred2" readonly="readonly">
+			<input type="hidden" name="required[]" value="診察希望日（第二希望）">
+			{if:$required.診察希望日（第二希望）}
+			<div class="error"><em>{$required.診察希望日（第二希望）}</em></div>
+			{/if:$required.診察希望日（第二希望）}
+			</div>
+			<div class="time-area">
+			</div>
+		</td>
+	</tr>
+	<tr>
+	<th><label for="preferred3"><span>診察希望日</span>（第三希望）</label><span class="req">(必須)</span></th>
+		<td id="date-2">
+			<div class="date-area">
+			<input class="datepicker middle validate[required]" type="text" name="診察希望日（第三希望）" value="{$診察希望日（第三希望）}" id="preferred3" readonly="readonly">
+			<input type="hidden" name="required[]" value="診察希望日（第三希望）">
+			{if:$required.診察希望日（第三希望）}
+			<div class="error"><em>{$required.診察希望日（第三希望）}</em></div>
+			{/if:$required.診察希望日（第三希望）}
+			</div>
+			<div class="time-area">
+			</div>
+		</td>
+	</tr>
+	</tbody>
+	</table>
+	</section>
+
+	<section class="history">
+	<h3>当院へのご来院は？（いずれかをご選択ください）</h3>
+	<ul>
+	<li>
+		<input type="radio" name="当院へのご来院" value="今回が初めて" id="first-time" {$checked.当院へのご来院.今回が初めて} {$checked.default}>
+		<label for="first-time">今回が初めて</label>
+	</li>
+	<li>
+		<input type="radio" name="当院へのご来院" value="過去に受診したことがある" id="already" {$checked.当院へのご来院.過去に受診したことがある}>
+		<label for="already">過去に受診したことがある</label>
+		<p id="card-number"><label for="number">診察券番号：</label><input type="text" name="診察券" value="{$診察券}" class="middle" id="number"></p>
+	</li>
+	</ul>
+	</section>
+
+	<section class="condition">
+	<h3>今回はどうされましたか？</h3>
+	<ul>
+	<li>
+		<input type="radio" name="受信目的" value="乳腺に異常がないかチェックしたい" id="matter1" {$checked.受信目的.乳腺に異常がないかチェックしたい} {$checked.default}>
+		<label for="matter1">乳腺に異常がないかチェックしたい</label>
+	</li>
+	<li>
+		<input type="radio" name="受信目的" value="気になる症状がある" id="matter2" {$checked.受信目的.気になる症状がある}>
+		<label for="matter2">気になる症状がある</label>
+	</li>
+	<li>
+		<input type="radio" name="受信目的" value="検診や人間ドックで要再検査・要精密検査の判定を受けた"  id="matter3"{$checked.受信目的.検診や人間ドックで要再検査・要精密検査の判定を受けた}>
+		<label for="matter3">検診や人間ドックで要再検査・要精密検査の判定を受けた</label>
+		<dl id="examination-contens">
+		<dt>検診・人間ドックの内容は？（複数回答可）</dt>
+		<dd>
+			<input type="checkbox" name="検診・人間ドックの内容[]" value="マンモグラフィ" id="mammography"  {$checked.検診・人間ドックの内容.マンモグラフィ}>
+			<label for="mammography">マンモグラフィ</label>
+		</dd>
+		<dd>
+			<input type="checkbox" name="検診・人間ドックの内容[]" value="超音波" id="ultrasonic-echo"  {$checked.検診・人間ドックの内容.超音波}>
+			<label for="ultrasonic-echo">超音波</label>
+		</dd>
+		<dd>
+			<input type="checkbox" name="検診・人間ドックの内容[]" value="触診" id="palpation"  {$checked.検診・人間ドックの内容.触診}>
+			<label for="palpation">触診</label>
+		</dd>
+		</dl>
+	</li>
+	<li>
+		<input type="radio" name="受信目的" value="その他" id="matter4" {$checked.受信目的.その他}>
+		<label for="matter4">その他</label>
+	</li>
+	</ul>
+	</section>
+
+	<section class="patient">
+	<h3>患者さまについて</h3>
+	<table class="tb01">
+	<tbody>
+	<tr>
+		<th><label for="name">お名前（漢字）</label><span class="req">(必須)</span></th>
+		<td>
+			<input type="text" name="お名前（漢字）" value="{$お名前（漢字）}" class="middle validate[required]" id="name">
+			<input type="hidden" name="required[]" value="お名前（漢字）">
+			{if:$required.お名前（漢字）}
+			<div class="error"><em>{$required.お名前（漢字）}</em></div>
+			{/if:$required.お名前（漢字）}
+		</td>
+	</tr>
+	<tr>
+		<th><label for="kana">お名前<span>（フリガナ）</span></label><span class="req">(必須)</span></th>
+		<td>
+			<input type="text" name="お名前（フリガナ）" value="{$お名前（フリガナ）}" class="middle validate[required,custom[katakana]]" id="kana">
+			<input type="hidden" name="required[]" value="お名前（フリガナ）">
+			{if:$required.お名前（フリガナ）}
+			<div class="error"><em>{$required.お名前（フリガナ）}</em></div>
+			{/if:$required.お名前（フリガナ）}
+			<input type="hidden" name="zenkaku_katakana[]" value="お名前（フリガナ）">
+			{if:$zenkaku_katakana.お名前（フリガナ）}
+			<div class="error"><em>{$zenkaku_katakana.お名前（フリガナ）}</em></div>
+			{/if:$zenkaku_katakana.お名前（フリガナ）}
+		</td>
+	</tr>
+	<tr>
+		<th><label for="email">メールアドレス</label><span class="req">(必須)</span></th>
+		<td>
+			<input type="email" name="メールアドレス" value="{$メールアドレス}" class="validate[required,custom[email]]" id="email"><br>
+			<input type="hidden" name="required[]" value="メールアドレス">
+			{if:$required.メールアドレス}
+			<div class="error"><em>{$required.メールアドレス}</em></div>
+			{/if:$required.メールアドレス}
+		</td>
+	</tr>
+	<tr>
+		<th><label for="tel">お電話番号</label><span class="req">(必須)</span></th>
+		<td>
+		<input id="tel" type="tel" name="お電話番号" class="validate[required,custom[phone],minSize[10],maxSize[11]],custom[samechara]" value="{$お電話番号}">
+		<span>ハイフンを除いて数値のみで入力して下さい。</span>
+		<input type="hidden" name="num_hyphen[]" value="お電話番号">
+		{if:$num_hyphen.お電話番号}
+		<div class="error"><em>{$num_hyphen.お電話番号}</em></div>
+		{/if:$num_hyphen.お電話番号}
+		<input type="hidden" name="required[]" value="お電話番号">
+		{if:$required.お電話番号}
+		<div class="error"><em>{$required.お電話番号}</em></div>
+		{/if:$required.お電話番号}
+		<input type="hidden" name="len[]" value="お電話番号 10-11">
+		{if:$len.お電話番号}
+		<div class="error"><em>{$len.お電話番号}</em></div>
+		{/if:$len.お電話番号} </td>
+	</tr>
+	<tr>
+		<th rowspan="2">生年月日<span class="req">(必須)</span></th>
+		<td class="year">
+		<select name="年" class="validate[required]">{$year_select}</select>&nbsp;年
+		<input type="hidden" name="required[]" value="年">
+		{if:$required.年}
+		<div class="error"><em>{$required.年}</em></div>
+		{/if:$required.年}
+		</td>
+	</tr>
+	<tr>
+		<td>
+		<select name="月" class="validate[required]">{$month_select}</select>&nbsp;月&nbsp;
+		<input type="hidden" name="required[]" value="月">
+		{if:$required.月}
+		<div class="error"><em>{$required.月}</em></div>
+		{/if:$required.月}
+		<select name="日" class="validate[required]">{$day_select}</select>&nbsp;日
+		<input type="hidden" name="required[]" value="日">
+		{if:$required.日}
+		<div class="error"><em>{$required.日}</em></div>
+		{/if:$required.日}
+		</td>
+	</tr>
+	</tbody>
+	</table>
+	</section>
+
+	<!--<section class="comment">
+	<h3><label for="other">気になる症状、ご希望の診察内容、医師への連絡事項などございましたらご記入ください</label></h3>
+	<textarea rows="6" cols="30" name="連絡事項" class="wide" id="other">{$連絡事項}</textarea>
+	</section>-->
+
+
+	<div class="btn"><input type="submit" value="入力内容を確認する"></div>
+	</form>
+</div>

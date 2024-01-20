@@ -1,0 +1,14 @@
+config:
+    email: book@breast-clinic.jp
+    subject: ［吉祥寺ブレストクリニック］Webからの予約
+    auto_reply_subject: ［吉祥寺ブレストクリニック］ご予約送信完了のお知らせ（自動返信メール）
+    auto_reply_name: 吉祥寺ブレストクリニック
+    auto_reply: true
+    auto_reply_email: メールアドレス
+    auto_reply_from_email: book@breast-clinic.jp
+    log_dir: site/wp-content/themes/breast-clinic/appointment/log/
+    tmp_dir: site/wp-content/themes/breast-clinic/appointment/tmp/
+    csrf: false
+    session: false
+    # checkmode: 2
+    # display_error: true

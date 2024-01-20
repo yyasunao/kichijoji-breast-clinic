@@ -1,0 +1,127 @@
+
+<section>
+<ol class="flow">
+<li>入力</li>
+<li class="current">確認</li>
+<li>完了</li>
+</ol>
+</section>
+
+<div id="appointment-form">
+	<h2>入力内容の確認</h2>
+	<p class="notes">以下の内容でよろしければ、ページ下部の送信ボタンを押してください。<br>
+	誤りがある場合は、前画面に戻って再度ご入力ください。</p>
+
+	<section>
+	<h3>ご希望の診察日時</h3>
+	<table id="reception-date" class="tb01">
+	<tbody>
+	<tr>
+	<th>診察希望日（第一希望）</th>
+		<td id="date-0">
+			{$診察希望日（第一希望）.value}　{$時間0.value}
+		</td>
+	</tr>
+	<tr>
+	<th>診察希望日（第二希望）</th>
+		<td id="date-1">
+			{$診察希望日（第二希望）.value}　{$時間1.value}
+		</td>
+	</tr>
+	<tr>
+	<th>診察希望日（第三希望）</th>
+		<td id="date-2">
+			{$診察希望日（第三希望）.value}　{$時間2.value}
+		</td>
+	</tr>
+	</tbody>
+	</table>
+	</section>
+
+
+	<section>
+	<h3>当院へのご来院は？（いずれかをご選択ください）</h3>
+	<p>{$当院へのご来院.value}</p>
+
+	{if:$card_number_flg}
+	<p>診察券番号：{$診察券.value}</p>
+	{/if:$card_number_flg}
+	</section>
+
+
+	<section>
+	<h3>今回はどうされましたか？</h3>
+	<p>{$受信目的.value}</p>
+
+	{if:$examination_contens_flg}
+	<h3>検診・人間ドックの内容は？</h3>
+	<ul>
+	{loop:$検診・人間ドックの内容.array}
+	<li>{$検診・人間ドックの内容.array[]}</li>
+	{/loop:$検診・人間ドックの内容.array}
+	</ul>
+	{/if:$examination_contens_flg}
+	</section>
+
+
+	<section>
+	<h3>患者さまについて</h3>
+	<table class="tb01">
+	<tbody>
+	<tr>
+		<th>お名前（漢字）<span>(必須)</span></th>
+		<td>
+		{$お名前（漢字）.value}
+		</td>
+	</tr>
+	<tr>
+		<th>お名前（フリガナ）<span>(必須)</span></th>
+		<td>
+		{$お名前（フリガナ）.value}
+		</td>
+	</tr>
+	<tr>
+		<th>メールアドレス<span>(必須)</span></th>
+		<td>
+		{$メールアドレス.value}
+		</td>
+	</tr>
+	<tr>
+		<th>お電話番号<span>(必須)</span></th>
+		<td>
+		{$お電話番号.value}
+		</td>
+	</tr>
+	<tr>
+		<th>生年月日<span>(必須)</span></th>
+		<td>
+		{$年.value}&nbsp;年&nbsp;{$月.value}&nbsp;月&nbsp;{$日.value}&nbsp;日
+		</td>
+	</tr>
+	</tbody>
+	</table>
+	</section>
+
+	<!-- <section>
+	<h3>気になる症状、ご希望の診察内容、医師への連絡事項などございましたらご記入ください</h3>
+	<p>{$連絡事項.value}</p>
+	</section> -->
+
+
+
+	<div class="btn">
+		<form method="post" action="{$form_action_url}#breadcrumbs" class="inline">
+		{$hiddens}
+		<input type="hidden" name="page_name" value="finish">
+		<input type="submit" value="この内容で送信する">
+		</form>
+		&nbsp;
+		<form method="post" action="{$form_action_url}#breadcrumbs" class="inline">
+		{$hiddens}
+		<input type="hidden" name="page_name" value="input">
+		<input type="submit" value="入力画面に戻る" class="return">
+		</form>
+
+
+	</div>
+</div>

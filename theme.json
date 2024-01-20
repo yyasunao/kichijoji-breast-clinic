@@ -1,0 +1,14 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/theme.json",
+    "version": 2,
+    "styles": {
+        "spacing": {
+            "padding": {
+                "top": "1rem",
+                "right": "3rem",
+                "bottom": "1rem",
+                "left": "3rem"
+            }
+        }
+    }
+}
