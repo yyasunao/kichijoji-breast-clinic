@@ -422,6 +422,11 @@ function my_javascript(){
 				minDate: '+1d',
 				beforeShowDay: function(date) {
 				var stop_flg = 0;
+				let japan_holiday = JapaneseHolidays.isHoliday(date);
+
+				if ( japan_holiday ) {
+					stop_flg = 1;
+				}
 
 				if (week_stop instanceof Array) {
 					for (var i = 0; i < week_stop.length; i++) {
@@ -587,9 +592,9 @@ function my_javascript(){
 
 	});
 
-	jQuery("#form").validationEngine('attach', {
+/* 	jQuery("#form").validationEngine('attach', {
 		promptPosition:"inline"
-	});
+	}); */
 
 
 	</script>
@@ -640,3 +645,22 @@ function my_admin_javascript(){
 	<?php
 }
 add_action('admin_print_footer_scripts', 'my_admin_javascript');
+
+/**
+ * 管理画面 日付別予約受付一覧 デフォルト昇順
+ *
+ * @param [type] $wp_query
+ * @return void
+ */
+function add_pre_get_posts($wp_query) {
+	if( is_admin() ) {
+		$post_type = $wp_query->query['post_type'];
+		if($post_type == 'reception') { // 投稿タイプ名
+			$wp_query->set('meta_key', 'set_date');
+			$wp_query->set('orderby', 'meta_value'); // 並び順を指定
+			//   $wp_query->set('order', 'DESC'); // 降順（デフォルト） = 3 → 2 → 1
+			$wp_query->set('order', 'ASC'); // 昇順 = 1 → 2 → 3
+		}
+	}
+}
+add_filter('pre_get_posts', 'add_pre_get_posts');
