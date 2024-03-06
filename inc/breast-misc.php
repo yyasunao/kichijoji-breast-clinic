@@ -1,8 +1,24 @@
 <?php
 /**
+ * post type
+ */
+require get_template_directory() . '/post-types/reception.php';
+
+/**
+ * 投稿画面 項目非表示
+ *
+ * @return void
+ */
+function my_remove_post_editor_support() {
+	remove_post_type_support( 'reception', 'title' );
+	remove_post_type_support( 'reception', 'editor' );
+}
+add_action( 'init' , 'my_remove_post_editor_support' );
+
+/**
  * init
  */
-add_action('init','breast_init');
+// add_action('init','breast_init');
 if(!function_exists('breast_init')) :
 function breast_init() {
 	// 日付別予約受付post
@@ -26,7 +42,7 @@ function breast_init() {
 		'hierarchical'      => false,
 		'show_ui'           => true,
 		'show_in_nav_menus' => true,
-		'supports'          => array( '' ),
+		'supports'          => [],
 		'has_archive'       => true,
 		'rewrite'           => true,
 		'query_var'         => true,
@@ -104,16 +120,15 @@ add_filter( 'manage_edit-reception_sortable_columns', 'set_date_register_sortabl
 //保存時処理
 function replace_post_data($data, $postarr){
 	global $post;
-	//var_dump($postarr);
+
 	 if('reception' == $data['post_type'] && isset($data['post_type'])) {
 
 		//日付取得
 		if (!empty($post->ID)) {
-			//日付と投稿日時の同期
 			$set_date = $_POST['acf']['field_5819a92cef2d7'];
-			$data['post_date'] = date_i18n( 'Y-m-d 00:00:00', strtotime($set_date) );
-			$data['post_date_gmt'] = date( 'Y-m-d 00:00:00', strtotime($set_date) );
-			$data['post_status'] ="publish";
+			if ( $data['post_status'] != 'trash' ) {
+				$data['post_status'] ="publish";
+			}
 
 			//過去の同じ日付設定を削除
 			$old_id = "";
@@ -170,7 +185,7 @@ if ( function_exists( 'acf_add_options_page' ) ) {
 /**
  * 予約受付状況取得
  */
-function reception_situation() {
+function reception_situation( $post_name ) {
 	if ( !function_exists( 'get_field' ) )
 		return;
 
@@ -196,8 +211,10 @@ function reception_situation() {
 	if( $list_query->have_posts() ) :
 	while( $list_query->have_posts() ) : $list_query->the_post();
 
+		$group = get_field( $post_name . '-examination', $list_query->ID );
+
 		//予約不可日時
-		$status = get_field('status',$list_query->ID);
+		$status = $group[$post_name . '-status'];
 
 		if ( !empty($status) && $status[0] == "1" ) {
 			$data['date_stop'][] = get_field('set_date',$list_query->ID);
@@ -227,14 +244,14 @@ function reception_situation() {
 /**
  * 予約受付時間取得
  */
-function reception_time($date = "") {
+function reception_time( $date = "" ) {
 	if ( !function_exists( 'get_field' ) )
 		return;
 
 	$date_data = date_i18n( 'y/m/d', strtotime($date) );
 
 	// 個別指定取得
-	$time = "";
+	$time = array();
 	$list_query = new WP_Query( array(
 	'post_type' => "reception",
 	'posts_per_page' => 1,
@@ -252,7 +269,12 @@ function reception_time($date = "") {
 	if( $list_query->have_posts() ) :
 	while( $list_query->have_posts() ) : $list_query->the_post();
 
-		$time = get_field('time',$list_query->ID);
+		$first_group = get_field('first-examination',$list_query->ID);
+		$time["first"] = $first_group['first-time'];
+
+		$revisit_group = get_field('revisit-examination',$list_query->ID);
+		$time["revisit"] = $revisit_group['revisit-time'];
+
 	endwhile;
 	wp_reset_postdata();
 	endif;
@@ -260,13 +282,17 @@ function reception_time($date = "") {
 	if ( empty($time) ) {
 		//曜日指定取得
 		$week_num = date_i18n( 'w', strtotime($date) );
-		$time = get_field('time_'.$week_num,'options');
+
+		$first_group = get_field('first-examination-basic','options');
+		$time["first"] = $first_group['first-time_'.$week_num];
+
+		$revisit_group = get_field('revisit-examination-basic','options');
+		$time["revisit"] = $revisit_group['revisit-time_'.$week_num];
 	}
 
 	return $time;
 
 }
-
 
 /**
  * 曜日変換
@@ -282,343 +308,22 @@ function week_jp($num = "")
 }
 
 /**
- * footer javascript
- */
-function my_javascript(){
-	//予約フォーム
-	if (is_page('appointment')):
-	global $_POST;
-	?>
-	<script type="text/javascript">
-	jQuery(function($){
-/*
-	//submit時 重複チェック
-	$("form").submit(function(event){
-		if (!overlap_check()) {
-			$("html,body").animate({scrollTop:$('#reception-date').offset().top});
-			return false;
-		}
-		else if (!samechara_num_check("#tel")) {
-			$("html,body").animate({scrollTop:$('#tel').offset().top});
-			return false;
-		}
-		else
-		{
-			$(this).submit();
-		}
-	});
-*/
-	//受付不可取得
-	$(function(){
-		$('.date-area').append('<p class="loader"></p>');
-		$('.date-area input').hide();
-		$.ajax({
-			url: "<?php echo get_stylesheet_directory_uri() ?>/lib/ajax/date_set.php",
-			type:'POST',
-			dataType: 'json',
-			data : {wp_directory : "<?php echo ABSPATH ?>"},
-			timeout:10000,
-			success: function(data) {
-				datepicker_set(data);
-				$('.loader').remove();
-				$('.date-area input').show();
-				time_load();
-			},
-			error: function(XMLHttpRequest, textStatus, errorThrown) {
-				alert("error");
-			}
-		});
-	});
-
-	//予約可能時間取得
-	$(".datepicker").on('change', function() {
-		var date = $(this).val();
-		var parent_id = ($(this).parent().parent().attr('id'));
-		time_set(date,parent_id);
-	});
-/*
-	//時間選択時 重複チェック
-	$(document).on('change','.time',function(){
-		overlap_check();
-	});
-*/
-	//電話番号 連続文字チェック
-	$(document).on('change','#tel',function(){
-		samechara_num_check("#tel");
-	});
-
-
-	//重複チェック
-	function overlap_check()
-	{
-		$(".overlap_err").remove();
-		var data = "";
-		var join = [];
-		var flg = 0;
-		var err = [];
-		var err_cnt = 0;
-		for (var i=0; i<3; i++) {
-			flg = 0;
-			tmp = $("#date-"+i).find(".datepicker").val();
-			tmp2 = $("#date-"+i).find(".time").val();
-			if (tmp2 !== undefined) {
-				if( $.inArray(tmp+tmp2, join) === -1)
-				{
-					join.push( tmp+tmp2 );
-				}
-				else{
-					err_cnt++;
-					flg = 1;
-				}
-			}
-			err.push(flg);
-		}
-		if (err_cnt > 0) {
-			for (var i=0; i < err.length; i++) {
-				if (err[i] === 1) {
-					$("#date-"+i).append('<span class="overlap_err">選択済みです。。</span>');
-
-				}
-			}
-			return false;
-		}
-		else{
-			return true;
-		}
-	}
-/*
-	//連続同じ数字チェック
-	function samechara_num_check(id){
-		$(".samechara_num_err").remove();
-		// 分割する数値
-		var beforeText = $(id).val();
-		// 数値を文字列に変換して、一文字ずつ分割
-		var beforeTextArr = String(beforeText).split('');
-
-		var num = 0;
-		for (var i = 0; i < beforeTextArr.length; i++) {
-			if (beforeTextArr[0] === beforeTextArr[i]) {
-				num++;
-			}
-		}
-
-		if (beforeTextArr.length === num) {
-			$(id).parent().append('<span class="samechara_num_err">ご連絡可能な電話番号を入力してください。</span>');
-			return false;
-		}
-		else{
-			return true;
-		}
-	}
-*/
-	//カレンダーセット
-	function datepicker_set(data)
-	{
-		var date_stop = data["date_stop"];//個別指定休業
-		var week_stop = data["week_stop"];//定休日
-		var date_open = data["date"];//個別指定予約可
-
-		$(".datepicker").datepicker({
-				minDate: '+1d',
-				beforeShowDay: function(date) {
-				var stop_flg = 0;
-				let japan_holiday = JapaneseHolidays.isHoliday(date);
-
-				if ( japan_holiday ) {
-					stop_flg = 1;
-				}
-
-				if (week_stop instanceof Array) {
-					for (var i = 0; i < week_stop.length; i++) {
-						if (date.getDay() == week_stop[i]) {
-							stop_flg = 1;
-						}
-					}
-				}
-				if (date_stop instanceof Array && !stop_flg) {
-					for (var i = 0; i < date_stop.length; i++) {
-						var htime = Date.parse(date_stop[i]);
-						var holiday = new Date();
-						holiday.setTime(htime);
-
-						if (holiday.getYear() == date.getYear() &&
-							holiday.getMonth() == date.getMonth() &&
-							holiday.getDate() == date.getDate()) {
-							stop_flg = 1;
-						}
-					}
-				}
-
-				if (date_open instanceof Array) {
-					for (var i = 0; i < date_open.length; i++) {
-						var htime = Date.parse(date_open[i]);
-						var holiday = new Date();
-						holiday.setTime(htime);
-
-						if (holiday.getYear() == date.getYear() &&
-							holiday.getMonth() == date.getMonth() &&
-							holiday.getDate() == date.getDate()) {
-							stop_flg = 0;
-						}
-					}
-				}
-				if (stop_flg) {
-					return [false, 'holiday'];
-				}
-				else{
-					return [true, ''];
-				}
-				
-			}
-		});
-	}
-
-	// 時間取得
-	function time_set(date, parent_id)
-	{
-		$("#"+parent_id).find(".time").remove();
-
-		if (date !== undefined && date !== "") {
-			$("#"+parent_id).find(".time-area").append('<p class="loader"></p>');
-
-			$.ajax({
-				url: "<?php echo get_stylesheet_directory_uri() ?>/lib/ajax/time_set.php",
-				type:'POST',
-				dataType: 'json',
-				data : {wp_directory : "<?php echo ABSPATH ?>", date: date, parent_id: parent_id},
-				timeout:10000,
-				success: function(data) {
-					$("#"+parent_id).find(".time-area .loader").remove();
-					if (data) {
-						//時間セット
-						data_arr = data.split("\r\n");
-						parent_id_arr = parent_id.split("-");
-						select = '<select id="time-'+parent_id_arr[1]+'" class="time validate[custom[overlap]]" name="時間'+parent_id_arr[1]+'">';
-						select += '<option value="当院指定の時刻で可">当院指定の時刻で可</option>';
-						jQuery.each(data_arr, function(key, val) {
-							disabled = '';
-							if ( ~val.indexOf('*')) {
-								disabled = ' disabled="disabled"';
-								val = val.replace(/\*/g,'');
-							}
-							select += '<option value="'+val+'"'+disabled+'>'+val+'</option>';
-						});
-						$("#"+parent_id).find(".time-area").append(select);
-					}
-					//overlap_check();
-				},
-				complete:  function(XMLHttpRequest, textStatus){
-					<?php
-					$time0 = ( isset( $_POST["時間0"] ) ) ? $_POST["時間0"] : '';
-					$time1 = ( isset( $_POST["時間1"] ) ) ? $_POST["時間1"] : '';
-					$time2 = ( isset( $_POST["時間2"] ) ) ? $_POST["時間2"] : '';
-					?>
-					//selected
-					time0 = '<?php echo $time0 ?>';
-					time1 = '<?php echo $time1 ?>';
-					time2 = '<?php echo $time2 ?>';
-					if (time0) {
-						$('*[name="時間0"]').val('<?php echo $time0 ?>');
-					}
-					if (time1) {
-						$('*[name="時間1"]').val('<?php echo $time1 ?>');
-					}
-					if (time2) {
-						$('*[name="時間2"]').val('<?php echo $time2 ?>');
-					}
-				},
-				error: function(XMLHttpRequest, textStatus, errorThrown) {
-					alert("error");
-				}
-			});
-		}
-		else
-		{
-			$(".overlap_err").remove();
-		}
-	}
-
-	// 時間一括取得
-	function time_load()
-	{
-		var parent_id = "";
-		var date = "";
-		for (var i=0; i<3; i++) {
-			parent_id = "date-"+i;
-			date = $("#"+parent_id).find(".datepicker").val();
-			if (date !== undefined && date !== "") {
-				time_set(date,parent_id);
-			}
-		}
-	}
-
-	// 診察券番号表示
-	$(document).on("change",'[name="当院へのご来院"]', function() {
-		card_number_dsp("slow");
-	});
-	$(window).load(function () {
-		card_number_dsp();
-	});
-	function card_number_dsp(action)
-	{
-		if ( "過去に受診したことがある" == $('[name="当院へのご来院"]:checked').val() ) {
-			$('#card-number').show(action);
-		}
-		else
-		{
-			$('[name="診察券番号"]').val("");
-			$('#card-number').hide(action);
-		}
-	}
-
-	// 検診・人間ドックの内容 表示
-	$(document).on("change",'[name="受信目的"]', function() {
-		examination_contens_dsp("slow");
-	});
-	$(window).load(function () {
-		examination_contens_dsp();
-	});
-	function examination_contens_dsp(action)
-	{
-		if ( "検診や人間ドックで要再検査・要精密検査の判定を受けた" == $('[name="受信目的"]:checked').val() ) {
-			$('#examination-contens').show(action);
-		}
-		else
-		{
-			$('[name="検診・人間ドックの内容[]"]').prop("checked", false);
-			$('#examination-contens').hide(action);
-		}
-	}
-
-	});
-
-/* 	jQuery("#form").validationEngine('attach', {
-		promptPosition:"inline"
-	}); */
-
-
-	</script>
-	<?php
-	endif;//if (is_page('appointment'))
-}
-add_action('wp_footer', 'my_javascript',999);
-
-
-/**
  * 管理画面 footer javascript
  */
 function my_admin_javascript(){
+	$screen = get_current_screen();
+	if ( $screen->post_type == 'reception' && $screen->base == "post" ) :
 	?>
 	<script type="text/javascript">
-	jQuery(function($){
-	$(".hasDatepicker").datepicker({
-	  onSelect: function(dateText) {
-	  }
-	});
+		jQuery(function($){
+			$(".hasDatepicker").datepicker({
+				onSelect: function(dateText) {
+			}
+		});
 
-		$(document).on('change',".post-type-reception form .hasDatepicker",function(){
-			date = $("*[name='acf[field_5819a92cef2d7]']").val();
+		$(document).on('change',".post-type-reception form .hasDatepicker",function(el){
 
+			date = $("*[name='acf[field_5819a92cef2d7]").val();
 
 			if (date !== undefined && date !== "") {
 			$.ajax({
@@ -628,7 +333,8 @@ function my_admin_javascript(){
 				data : {wp_directory : "<?php echo ABSPATH ?>", date: date},
 				timeout:10000,
 				success: function(data) {
-					$("*[name='acf[field_5819aa5fe918a]']").val(data);
+					$("*[name='acf[field_65c18d21bf5ce][field_5819aa5fe918a]']").val(data["first"]);
+					$("*[name='acf[field_65c19db926fa2][field_65c19db926fa5]']").val(data["revisit"]);
 				},
 				error: function(XMLHttpRequest, textStatus, errorThrown) {
 					alert("error");
@@ -643,6 +349,7 @@ function my_admin_javascript(){
 
 	</script>
 	<?php
+	endif;
 }
 add_action('admin_print_footer_scripts', 'my_admin_javascript');
 

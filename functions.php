@@ -138,20 +138,39 @@ add_action( 'widgets_init', 'kichijoji_breast_clinic_widgets_init' );
  * Enqueue scripts and styles.
  */
 function kichijoji_breast_clinic_scripts() {
-	$theme = wp_get_theme( get_template() );
-	$theme_ver = $theme->Version;
+	global $post;
 
 	wp_enqueue_style( 'kichijoji-breast-clinic-style', get_stylesheet_uri(), array(), _S_VERSION );
 	wp_style_add_data( 'kichijoji-breast-clinic-style', 'rtl', 'replace' );
+	wp_enqueue_style( 'kichijoji-breast-clinic-validationEngine', get_template_directory_uri() . '/js/validation/css/validationEngine.jquery.css', array(), _S_VERSION );
 
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'kichijoji-breast-clinic-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true );
-	wp_enqueue_script( 'kichijoji-breast-clinic-child-japanese-holidays', "https://cdn.rawgit.com/osamutake/japanese-holidays-js/v1.0.10/lib/japanese-holidays.min.js" , array('jquery'), $theme_ver, true );
+	wp_enqueue_script( 'kichijoji-breast-clinic-child-japanese-holidays', "https://cdn.rawgit.com/osamutake/japanese-holidays-js/v1.0.10/lib/japanese-holidays.min.js" , array('jquery'), "", true );
 	wp_enqueue_script( 'breast-clinic-jquery-ui', 'https://code.jquery.com/ui/1.9.2/jquery-ui.js', array('jquery'), false, true );
 	wp_enqueue_script( 'kichijoji-breast-clinic-datepicker', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1/i18n/jquery.ui.datepicker-ja.min.js', array('jquery'), false, true );
+	wp_enqueue_script( 'kichijoji-breast-clinic-validationEngine-ja', get_template_directory_uri() . '/js/validation/languages/jquery.validationEngine-ja.js', array('jquery'), false, true );
+	wp_enqueue_script( 'kichijoji-breast-clinic-validationEngine', get_template_directory_uri() . '/js/validation/jquery.validationEngine.min.js', array('jquery'), false, true );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
+	}
+
+	//予約フォーム
+	$get_page = get_page_by_path( "appointment" );
+	$get_page_id = $get_page->ID;
+	if( $get_page_id == $post->post_parent ) {
+		wp_enqueue_script( 'kichijoji-breast-clinic-appointment', get_template_directory_uri() . '/js/appointment.js', array('jquery'), false, true );
+		wp_localize_script(
+			'kichijoji-breast-clinic-appointment',
+			'kbc_localize_data',
+			array(
+				'get_stylesheet_directory_uri' => get_stylesheet_directory_uri(),
+				'ABSPATH' => ABSPATH,
+				'post_name' => $post->post_name,
+
+			)
+		);
 	}
 }
 add_action( 'wp_enqueue_scripts', 'kichijoji_breast_clinic_scripts' );
