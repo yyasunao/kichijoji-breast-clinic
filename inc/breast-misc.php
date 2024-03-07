@@ -15,47 +15,6 @@ function my_remove_post_editor_support() {
 }
 add_action( 'init' , 'my_remove_post_editor_support' );
 
-/**
- * init
- */
-// add_action('init','breast_init');
-if(!function_exists('breast_init')) :
-function breast_init() {
-	// 日付別予約受付post
-	register_post_type( 'reception', array(
-		'labels'            => array(
-			'name'                => __( '日付別予約受付', 'shima-plugin' ),
-			'singular_name'       => __( '日付別予約受付', 'shima-plugin' ),
-			'all_items'           => __( '日付別予約受付一覧', 'shima-plugin' ),
-			'new_item'            => __( '新規投稿を追加', 'shima-plugin' ),
-			'add_new'             => __( '新規追加', 'shima-plugin' ),
-			'add_new_item'        => __( '新しい日付別予約受付を追加', 'shima-plugin' ),
-			'edit_item'           => __( '日付別予約受付を編集', 'shima-plugin' ),
-			'view_item'           => __( '日付別予約受付を表示', 'shima-plugin' ),
-			'search_items'        => __( '日付別予約受付を検索', 'shima-plugin' ),
-			'not_found'           => __( '日付別予約受付が見つかりませんでした。', 'shima-plugin' ),
-			'not_found_in_trash'  => __( 'ゴミ箱内に日付別予約受付が見つかりませんでした。', 'shima-plugin' ),
-			'parent_item_colon'   => __( 'Parent reception', 'shima-plugin' ),
-			'menu_name'           => __( '日付別予約受付', 'shima-plugin' ),
-		),
-		'public'            => true,
-		'hierarchical'      => false,
-		'show_ui'           => true,
-		'show_in_nav_menus' => true,
-		'supports'          => [],
-		'has_archive'       => true,
-		'rewrite'           => true,
-		'query_var'         => true,
-		'menu_icon'         => 'dashicons-admin-post',
-		'menu_position'     => 5,
-		'show_in_rest'      => true,
-		'rest_base'         => 'reception',
-		'rest_controller_class' => 'WP_REST_Posts_Controller',
-	) );
-
-}
-endif; // breast_init
-
 //予約投稿機能を無効化
 add_action('save_post', 'futuretopublish', 99);
 add_action('edit_post', 'futuretopublish', 99);
@@ -231,8 +190,10 @@ function reception_situation( $post_name ) {
 
 	//休業曜日
 	$sutatus = "";
+	$group = get_field( $post_name . '-examination-basic','options');
 	for ($i=0; $i <= 6 ; $i++) { 
-		$sutatus = get_field('status_'.$i,'options');
+		$sutatus = $group[ $post_name . '-status_'.$i];
+
 		if ( !empty($sutatus[0]) ) {
 			$data['week_stop'][] = $i;//曜日ナンバーを代入
 		}
