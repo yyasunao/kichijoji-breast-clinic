@@ -170,7 +170,7 @@
 	function time_set(date, inpuutName) {
 
 		$("*[name='" + inpuutName + "_time'] > option").remove();
-		$("*[name='" + inpuutName + "_time']").prop("disabled", true).append($('<option>').html("日付を選択してください").val(""));
+		$("*[name='" + inpuutName + "_time']").prop("disabled", true).append($('<option>').html("時間を選択してください").val(""));
 
 		if (date !== undefined && date !== "") {
 
