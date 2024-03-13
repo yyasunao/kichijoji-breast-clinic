@@ -2892,9 +2892,3 @@ text-align: center !important;
 .ui-datepicker-calendar .holiday span,
 .ui-datepicker-calendar .ui-state-disabled span {color: #378F8F !important;}
 
-select.ui-datepicker-year ,
-select.ui-datepicker-month {
-	font-size: 25px;
-	padding: 0 0.3em;
-	margin: 0 0.3em;
-}
