@@ -265,4 +265,11 @@
 		}
 	}
 
+	// 診察券番号 バリデーション
+	if($('input[name=card-number]').length){
+		$('input[name=card-number]').addClass('validate[condRequired[card-number-required]]');
+		$('input[name=card-number-check]').eq(0).attr('id', 'card-number-required');
+	}
+	
+
 })(jQuery);
