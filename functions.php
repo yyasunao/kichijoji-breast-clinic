@@ -103,6 +103,17 @@ function kichijoji_breast_clinic_setup() {
 add_action( 'after_setup_theme', 'kichijoji_breast_clinic_setup' );
 
 /**
+ * Admin style
+ */
+function kichijoji_breast_clinic_child_add_admin_style(){
+	$theme = wp_get_theme();
+	$theme_ver = $theme->Version;
+
+	wp_enqueue_style( 'kichijoji_breast_clinic_child_admin_style', get_theme_file_uri( '/style-admin.css' ), '', $theme_ver );
+}
+add_action( 'admin_enqueue_scripts', 'kichijoji_breast_clinic_child_add_admin_style', 99 );
+
+/**
  * Set the content width in pixels, based on the theme's design and stylesheet.
  *
  * Priority 0 to make it available to lower priority callbacks.

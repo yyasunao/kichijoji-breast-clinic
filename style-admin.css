@@ -1,0 +1,26 @@
+/*
+admin style
+*/
+
+div[data-name="first-examination"] ,
+div[data-name="first-examination-basic"] {
+	background: rgba(141,194,31, 0.2);
+
+	>.acf-label > label {
+		font-size: 150%;
+		font-weight: bold !important;
+		color: #5B8600;
+	}
+}
+
+
+div[data-name="revisit-examination"] ,
+div[data-name="revisit-examination-basic"] {
+	background: rgba(141,194,239, 0.2);
+
+	>.acf-label > label {
+		font-size: 150%;
+		font-weight: bold !important;
+		color: #005BA7;
+	}
+}
