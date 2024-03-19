@@ -67,7 +67,7 @@
                     "name": "first-time",
                     "aria-label": "",
                     "type": "textarea",
-                    "instructions": "予約受付時間選択肢の先頭に「何時でも可能」がデフォルトで入ります。\r\n時間の末尾に「*」を付与することでその時間の予約を選べないようにします。<br>\r\n<br>\r\n例：「11時～12時」を選べないようにする。<br>\r\n--------------<br>\r\n10時～11時<br>\r\n11時～12時*<br>\r\n--------------<br>\r\n※入力が無い場合は曜日設定の時間を取得します。<br>\r\n曜日設定にも入力がない場合は時間選択が表示されないので、特に定期休診日に診療を行う場合は注意してください。",
+                    "instructions": "",
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
@@ -130,7 +130,7 @@
                     "name": "revisit-time",
                     "aria-label": "",
                     "type": "textarea",
-                    "instructions": "予約受付時間選択肢の先頭に「何時でも可能」がデフォルトで入ります。\r\n時間の末尾に「*」を付与することでその時間の予約を選べないようにします。<br>\r\n<br>\r\n例：「11時～12時」を選べないようにする。<br>\r\n--------------<br>\r\n10時～11時<br>\r\n11時～12時*<br>\r\n--------------<br>\r\n※入力が無い場合は曜日設定の時間を取得します。<br>\r\n曜日設定にも入力がない場合は時間選択が表示されないので、特に定期休診日に診療を行う場合は注意してください。",
+                    "instructions": "",
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
@@ -165,5 +165,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1707291182
+    "modified": 1710817252
 }
