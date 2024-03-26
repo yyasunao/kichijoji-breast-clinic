@@ -256,12 +256,12 @@
 	});
 	function examination_contens_dsp(action) {
 		if ( "検診や人間ドックで要再検査・要精密検査の判定を受けた" == $('[name="request"]:checked').val() ) {
-			$('#examination-contens').show(action);
+			$('.examination-contens').show(action);
 		}
 		else
 		{
 			$('[name="medical-checkup[]"]').prop("checked", false);
-			$('#examination-contens').hide(action);
+			$('.examination-contens').hide(action);
 		}
 	}
 
