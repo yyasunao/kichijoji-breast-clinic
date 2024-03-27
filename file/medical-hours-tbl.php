@@ -12,31 +12,31 @@
 	<tr>
 		<th>10:00〜13:00</th>
 		<td>●</td>
-		<td>━</td>
+		<td class="thin">ー</td>
 		<td>●</td>
 		<td class="holiday">休</td>
 		<td>●</td>
-		<td>━</td>
+		<td class="thin">ー</td>
 		<td class="holiday">休</td>
 	</tr>
 	<tr>
 		<th>10:00〜15:00</th>
-		<td>━</td>
+		<td class="thin">ー</td>
 		<td>●</td>
-		<td>━</td>
+		<td class="thin">ー</td>
 		<td class="holiday">休</td>
-		<td>━</td>
+		<td class="thin">ー</td>
 		<td>●</td>
 		<td class="holiday">休</td>
 	</tr>
 	<tr>
 		<th>14:30〜18:30</th>
 		<td>●</td>
-		<td>━</td>
+		<td class="thin">ー</td>
 		<td>●</td>
 		<td class="holiday">休</td>
 		<td>●</td>
-		<td>━</td>
+		<td class="thin">ー</td>
 		<td class="holiday">休</td>
 	</tr>
 </table>
