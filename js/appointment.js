@@ -192,6 +192,7 @@
 								if ( ~val.indexOf('*')) {
 									disabled = true;
 									val = val.replace(/\*/g,'');
+									val += " [予約不可]";
 								}
 								$("*[name='" + inpuutName + "_time']").append($('<option>').html(val).val(val).prop("disabled", disabled));
 							});
