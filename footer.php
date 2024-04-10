@@ -14,7 +14,7 @@
 	<footer id="colophon" class="site-footer bg-w">
 		<div class="inner wrapper">
 			<div class="info-blk">
-				<p class="footer-logo"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><img src="/newsite/wp/wp-content/uploads/2023/11/logo.svg" alt="<?php bloginfo( 'name' ); ?>"></a></p>
+				<p class="footer-logo"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><img src="/newsite/wp/wp-content/uploads/2024/04/logo.svg" alt="<?php bloginfo( 'name' ); ?>"></a></p>
 				<p class="address">
 					東京都武蔵野市吉祥寺本町2-10-8　フィオリトゥーラ吉祥寺Ⅰ-2F<br>JR・京王井の頭線吉祥寺駅徒歩5分
 				</p>
@@ -23,7 +23,7 @@
 				</p>
 				<ul class="notes">
 					<li>予約優先
-						<p>お急ぎの場合は、予約なしでの受診も可能です（最終受付は診療終了の30分前まで／お待ち時間が長くなる可能性もございます）。<br><a href="#">予約なしでの受診をご希望の方へのご案内はこちら</a></p>
+						<p>お急ぎの場合は、予約なしでの受診も可能です（最終受付は診療終了の30分前まで／お待ち時間が長くなる可能性もございます）。<br>予約なしでの受診をご希望の方へのご案内は<a href="<?php echo esc_url( home_url( '/' ) ); ?>about/#no-reservations">こちら</a>。</p>
 					</li>
 					<li>お支払いは、現金のみです。</li>
 				</ul>

@@ -29,11 +29,11 @@
 			the_custom_logo();
 			if ( is_front_page() && is_home() ) :
 				?>
-				<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><img src="/newsite/wp/wp-content/uploads/2023/11/logo.svg" alt="<?php bloginfo( 'name' ); ?>"></a></h1>
+				<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><img src="/newsite/wp/wp-content/uploads/2024/04/logo.svg" alt="<?php bloginfo( 'name' ); ?>"></a></h1>
 				<?php
 			else :
 				?>
-				<p class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><img src="/newsite/wp/wp-content/uploads/2023/11/logo.svg" alt="<?php bloginfo( 'name' ); ?>"></a></p>
+				<p class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><img src="/newsite/wp/wp-content/uploads/2024/04/logo.svg" alt="<?php bloginfo( 'name' ); ?>"></a></p>
 				<?php
 			endif;
 			$kichijoji_breast_clinic_description = get_bloginfo( 'description', 'display' );
