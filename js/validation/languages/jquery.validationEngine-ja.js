@@ -168,9 +168,6 @@
                                     flg = 1;
                                 }
                             }
-                            console.log(tmp);
-                            console.log(tmp2);
-                            console.log(join);
                             err.push(flg);
                         }
                         if (err_cnt > 0) {
