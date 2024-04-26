@@ -160,8 +160,8 @@ function kichijoji_breast_clinic_scripts() {
 	wp_enqueue_script( 'kichijoji-breast-clinic-child-japanese-holidays', "https://cdn.rawgit.com/osamutake/japanese-holidays-js/v1.0.10/lib/japanese-holidays.min.js" , array('jquery'), "", true );
 	wp_enqueue_script( 'breast-clinic-jquery-ui', 'https://code.jquery.com/ui/1.9.2/jquery-ui.js', array('jquery'), false, true );
 	wp_enqueue_script( 'kichijoji-breast-clinic-datepicker', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1/i18n/jquery.ui.datepicker-ja.min.js', array('jquery'), false, true );
-	wp_enqueue_script( 'kichijoji-breast-clinic-validationEngine-ja', get_template_directory_uri() . '/js/validation/languages/jquery.validationEngine-ja.js', array('jquery'), false, true );
-	wp_enqueue_script( 'kichijoji-breast-clinic-validationEngine', get_template_directory_uri() . '/js/validation/jquery.validationEngine.min.js', array('jquery'), false, true );
+	wp_enqueue_script( 'kichijoji-breast-clinic-validationEngine-ja', get_template_directory_uri() . '/js/validation/languages/jquery.validationEngine-ja.js', array('jquery'), 1.0, true );
+	wp_enqueue_script( 'kichijoji-breast-clinic-validationEngine', get_template_directory_uri() . '/js/validation/jquery.validationEngine.min.js', array('jquery'), 1.0, true );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
