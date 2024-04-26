@@ -145,6 +145,66 @@
                 "katakana": {
                     "regex": /^[ア-ンァ-ォャ-ョー]+$/,
                     "alertText": "* 全角カタカナで入力してください"
+                },
+                "overlap": {
+                    "func": function(){
+                        $("#reception-date .formError").remove();
+                        var data = "";
+                        var join = [];
+                        var flg = 0;
+                        var err = [];
+                        var err_cnt = 0;
+                        for (var i=0; i<3; i++) {
+                            flg = 0;
+                            tmp = $("#date-"+i).find(".datepicker").val();
+                            tmp2 = $("#date-"+i).find(".time").val();
+                            if (tmp !== "" && tmp2 !== '') {
+                                if( $.inArray(tmp+tmp2, join) === -1)
+                                {
+                                    join.push( tmp+tmp2 );
+                                }
+                                else{
+                                    err_cnt++;
+                                    flg = 1;
+                                }
+                            }
+                            console.log(tmp);
+                            console.log(tmp2);
+                            console.log(join);
+                            err.push(flg);
+                        }
+                        if (err_cnt > 0) {
+                            return false;
+                        }
+                        else{
+                            return true;
+                        }
+                    },
+                    "alertText": "* 同日同時刻を２回以上選択することはできません。"
+                },
+                "samechara": {
+                    "func": function(id){
+                        $(".samechara_num_err").remove();
+                        // 分割する数値
+                        var beforeText = $(id).val();
+                        // 数値を文字列に変換して、一文字ずつ分割
+                        var beforeTextArr = String(beforeText).split('');
+
+                        var num = 0;
+                        for (var i = 0; i < beforeTextArr.length; i++) {
+                            if (beforeTextArr[0] === beforeTextArr[i]) {
+                                num++;
+                            }
+                        }
+
+                        if (beforeTextArr.length === num) {
+                            return false;
+                        }
+                        else{
+                            return true;
+                        }
+                    },
+                    "alertText": "* ご連絡可能な電話番号を入力してください。"
                 }
             };
             
