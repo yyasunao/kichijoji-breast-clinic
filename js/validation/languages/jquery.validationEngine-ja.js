@@ -158,7 +158,7 @@
                             flg = 0;
                             tmp = $("#date-"+i).find(".datepicker").val();
                             tmp2 = $("#date-"+i).find(".time").val();
-                            if (tmp !== "" && tmp2 !== '') {
+                            if (tmp !== "") {
                                 if( $.inArray(tmp+tmp2, join) === -1)
                                 {
                                     join.push( tmp+tmp2 );
