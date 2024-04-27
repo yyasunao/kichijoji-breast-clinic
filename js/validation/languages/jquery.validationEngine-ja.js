@@ -149,44 +149,34 @@
                 "overlap": {
                     "func": function(id){
                         $("#reception-date .formError").remove();
-                        
-                        var data = "";
-                        var join = [];
-                        var flg = 0;
-                        var err = [];
-                        var err_cnt = 0;
+                        let flg = 0;
+                        let err = [];
+                        let err_cnt = 0;
 
-                        const dateId = id.parents('*[id*="date-"]').attr('id');
-                        const date = $("#"+dateId).find(".datepicker").val();
-                        const time = $("#"+dateId).find(".time").val();
-                        const num = Number(dateId.replace("date-", ""));
-                        $('#' + dateId).find(".overlap_err").remove();
-                            
+                        $(".overlap_err").remove();
                         for (var i=0; i<3; i++) {
                             flg = 0;
-                            if ( i !== num ) {
-                                tmp = $("#date-"+i).find(".datepicker").val();
-                                tmp2 = $("#date-"+i).find(".time").val();
-                                if (tmp !== "") {
-                                    if( tmp+tmp2 == date+time)
-                                    {
-                                        err_cnt++;
-                                        flg = 1;
+                            var get_date = $("#date-"+i).find(".datepicker").val();
+                            var get_time = $("#date-"+i).find(".time").val();
+                            if (get_date !== "") {
+                                for (var i2=0; i2<3; i2++) {
+                                    if (i != i2) {
+                                        var check_date = $("#date-"+i2).find(".datepicker").val();
+                                        var check_time = $("#date-"+i2).find(".time").val();
 
+                                        if ( get_date+get_time == check_date+check_time ) {
+                                            if(!$('#date-'+i+'-err').length){
+                                              $("#date-"+i).append('<div class="formError inline"><div id="date-'+i+'-err" class="overlap_err formErrorContent">* 同日同時刻を２回以上選択することはできません。</div></div>');
+                                            }
+                                            err_cnt++;
+                                        }
                                     }
                                 }
                             }
                             err.push(flg);
                         }
+
                         if (err_cnt > 0) {
-                            $("#"+dateId).append('<div class="formError inline"><div id="date-'+i+'-err" class="overlap_err formErrorContent">* 同日同時刻を２回以上選択することはできません。</div></div>');
-                            // for (var i=0; i < err.length; i++) {
-                            //     if (err[i] === 1) {
-                            //         if(!$('#date-'+i+'-err').length){
-                            //             $("#date-"+i).append('<div class="formError inline"><div id="date-'+i+'-err" class="overlap_err formErrorContent">* 同日同時刻を２回以上選択することはできません。</div></div>');
-                            //         }
-                            //     }
-                            // }
                             return false;
                         }
                         else{
