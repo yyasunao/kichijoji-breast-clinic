@@ -2968,6 +2968,12 @@ td {
 }
 
 
+/* 送信完了画面 */
+/*.appointment-child .snow-monkey-form-559[data-screen='complete']:has(.entry-content .first-blk) {
+	display: none;
+}
+*/
+
 /*================================================================個人情報の取り扱いについて*/
 .privacy .entry-title {
 	height: 13em;
