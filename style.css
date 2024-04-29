@@ -159,6 +159,18 @@ body {
 	font-weight: 400;
 	font-family: YakuHanJP_Noto, 'Noto Sans JP', serif;
 	line-height: 2;
+	animation: fadeIn 2s ease 0s 1 normal;
+	-webkit-animation: fadeIn 2s ease 0s 1 normal;
+}
+
+@keyframes fadeIn {
+	0% {opacity: 0}
+	100% {opacity: 1}
+}
+
+@-webkit-keyframes fadeIn {
+	0% {opacity: 0}
+	100% {opacity: 1}
 }
 
 h1,
@@ -302,7 +314,7 @@ button {
 
 .site-header:after {
 	background: url(/newsite/wp/wp-content/uploads/2023/12/wave2_b.svg) repeat-x center bottom / contain;
-	height: 25px;
+/*	height: 25px;*/
 	top: auto;
 	bottom: -25px;
 	z-index: 2;
@@ -2949,6 +2961,10 @@ td {
 	margin: 5px 0 0;
 	line-height: 1.4;
 	background: #F4A652 !important;
+}
+
+.wp-block-columns:not(.is-not-stacked-on-mobile)>.wp-block-column {
+	flex-grow: 1 !important;
 }
 
 

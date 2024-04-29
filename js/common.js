@@ -117,7 +117,9 @@ $(function () {
   });
 });
 
-
+$(function () {
+  $("[data-screen='complete']").parents('.entry-content').find('.first-blk').addClass('test');
+});
 
 
 
