@@ -213,3 +213,39 @@ if ( defined( 'JETPACK__VERSION' ) ) {
 	require get_template_directory() . '/inc/jetpack.php';
 }
 
+
+
+
+
+
+
+//完了画面の.first-blk要素にtestクラスを追加
+add_action(
+    'wp_enqueue_scripts',
+    function() {
+        $script = <<<EOD
+window.addEventListener('load', function () {
+    var form = document.getElementById('snow-monkey-form-559');
+    var form2 = document.getElementById('snow-monkey-form-560');
+    if (form || form2) {
+        var elements = document.querySelectorAll("[data-screen='complete']");
+        elements.forEach(function (element) {
+            var parent = element.closest('.entry-content');
+            if (parent) {
+                var firstBlk = parent.querySelector('.first-blk');
+                if (firstBlk) {
+                    firstBlk.classList.add('test');
+                }
+            }
+        });
+    }
+});
+EOD;
+        wp_add_inline_script(
+            'kichijoji_breast_clinic_scripts',
+            $script,
+            'after'
+        );
+    },
+    11
+);
