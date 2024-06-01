@@ -88,7 +88,8 @@ dd {
 	padding: 0;
 }
 
-li {
+ul,
+ol {
 	list-style-type: none;
 }
 
@@ -944,7 +945,8 @@ td {
 	}
 
 	.site-header .nav-menu > li.about > a,
-	.site-header .nav-menu > li.medical > a {
+	.site-header .nav-menu > li.medical >a,
+	.site-header .nav-menu > li.beginner >a {
 		display: none;
 	}
 }
@@ -1026,6 +1028,12 @@ td {
 
 .site-header .nav-menu > li.medical .sub-menu {
 	width: 529px;
+}
+
+.site-header .nav-menu > li.beginner .sub-menu {
+	left: auto;
+	right: 0;
+	width: 370px;
 }
 
 .site-header .nav-menu > li:hover .sub-menu {
@@ -1145,6 +1153,20 @@ td {
 .site-footer .nav-blk {
 	background: #F8F6F3;
 	padding: 20px 0 50px;
+}
+
+.site-footer .nav-blk .menu-footer-menu2-container {
+	display: none;
+}
+
+@media (max-width: 480px) {
+	.site-footer .nav-blk .menu-footer-menu1-container,
+	.site-footer .nav-blk .menu-footer-menu2-container {
+		width: calc(50% - 15px);
+	}
+	.site-footer .nav-blk .menu-footer-menu2-container {
+		display: block;
+	}
 }
 
 .site-footer .footer-navigation .menu {
@@ -2421,7 +2443,7 @@ td {
 }
 
 .beginner section.bg-b .inner {
-	padding: 0 0 0 200px;
+	padding: 0 0 0 100px;
 }
 
 @media (max-width: 480px) {
@@ -2430,7 +2452,101 @@ td {
 	}
 }
 
+.beginner #about,
+.beginner #doctor {
+	margin: 0 0 100px;
+}
 
+@media (max-width: 480px) {
+	.beginner #about,
+	.beginner #doctor {
+		margin: 0 0 60px;
+	}
+}
+
+.beginner .blk-title {
+	margin: 0 0 20px;
+}
+
+.beginner .content {
+	margin: 0 100px;
+}
+
+@media (max-width: 480px) {
+	.beginner .content {
+		margin: 0;
+	}
+}
+
+.beginner .ark-block-faq__item + .ark-block-faq__item {
+	border-top: 1px solid rgba(119, 86, 53, .5);
+	margin: 30px 0 0;
+	padding: 30px 0 0;
+}
+
+.beginner .ark-block-faq__q {
+	padding: 0 40px;
+	cursor: pointer;
+}
+
+.beginner .ark-block-faq__a {
+	padding: 0 0 0 40px;
+	margin: 30px 0 0;
+	display: none;
+}
+
+.beginner .ark-block-faq__a:before,
+.beginner .ark-block-faq__q:before {
+	font-size: 2.8rem;
+	font-family: 'dnp-shuei-mgothic-std', sans-serif;
+	font-weight: 600;
+	text-align: left;
+	line-height: 1;
+	left: 0;
+	top: 0;
+	margin: 0 12px 0 0;
+	width: auto;
+	background: transparent;
+	color: #775635;
+	box-shadow: none;
+}
+
+.beginner .ark-block-faq__a:before {
+	content: 'A.';
+}
+
+.beginner .ark-block-faq__q:before {
+	content: 'Q.';
+}
+
+.beginner .ark-block-faq__q:after {
+	content: '';
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 23px;
+	height: 23px;
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: contain;
+}
+
+.beginner .ark-block-faq__q:after {
+	background-image: url(/newsite/wp/wp-content/uploads/2024/05/ico_plus_r.svg);
+}
+
+.beginner .ark-block-faq__q.show:after {
+	background-image: url(/newsite/wp/wp-content/uploads/2024/05/ico_minus_r.svg);
+}
+
+.beginner .ark-block-faq__a ul {
+	padding: 0 0 0 1.5em;
+	list-style-type: disc;
+}
+
+.beginner .ark-block-faq__a li:not(:last-of-type) {
+	margin: 0 0 1em;
+}
 
 /*================================================================ご予約*/
 .appointment .entry-title {
@@ -2969,10 +3085,10 @@ td {
 
 
 /* 送信完了画面 */
-/*.appointment-child .snow-monkey-form-559[data-screen='complete']:has(.entry-content .first-blk) {
+/*.appointment-child .snow-monkey-form-559[data-screen='complete']:has(> .first-blk) .first-blk {
 	display: none;
-}
-*/
+}*/
+
 
 /*================================================================個人情報の取り扱いについて*/
 .privacy .entry-title {
