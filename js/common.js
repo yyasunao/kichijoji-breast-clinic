@@ -117,13 +117,18 @@ $(function () {
   });
 });
 
-$(function () {
-  $("[data-screen='complete']").parents('.entry-content').find('.first-blk').addClass('test');
+
+$(function(){
+  $('.ark-block-faq__q').on('click', function() {
+    $(this).toggleClass('show');
+    $(this).next().slideToggle('500');
+  });
 });
 
 
-
-
+// $(function () {
+//   $("[data-screen='complete']").parents('.entry-content').find('.first-blk').addClass('test');
+// });
 
 
 
