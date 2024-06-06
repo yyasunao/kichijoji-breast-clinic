@@ -227,25 +227,45 @@ add_action(
 window.addEventListener('load', function () {
     var form = document.getElementById('snow-monkey-form-559');
     var form2 = document.getElementById('snow-monkey-form-560');
-    if (form || form2) {
-        var elements = document.querySelectorAll("[data-screen='complete']");
-        elements.forEach(function (element) {
-            var parent = element.closest('.entry-content');
-            if (parent) {
-                var firstBlk = parent.querySelector('.first-blk');
-                if (firstBlk) {
-                    firstBlk.classList.add('test');
-                }
-            }
-        });
-    }
+
+	if (form) {
+		form.addEventListener(
+			'smf.submit',
+			function(event) {
+				if ('complete' === event.detail.status) {
+					completeAddClass( form );
+				}
+			}
+		);
+	}
+	else if (form2) {
+		form2.addEventListener(
+			'smf.submit',
+			function(event) {
+				if ('complete' === event.detail.status) {
+					completeAddClass( form2 );
+				}
+			}
+		);
+	}
+
+	function completeAddClass( element ) {
+		var parent = element.closest(".entry-content");
+		if (parent) {
+			var firstBlk = parent.querySelector('.first-blk');
+
+			if (firstBlk) {
+				firstBlk.classList.add('test');
+			}
+		}
+	}
 });
 EOD;
-        wp_add_inline_script(
-            'kichijoji_breast_clinic_scripts',
-            $script,
-            'after'
-        );
-    },
-    11
+		wp_add_inline_script(
+			'snow-monkey-forms',
+			$script,
+			'after'
+		);
+	},
+	11
 );
