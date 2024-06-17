@@ -1,10 +1,20 @@
-$('a[href^="#"]').click(function () {
-  const speed = 600;
-  let href = $(this).attr("href");
-  let target = $(href == "#" || href == "" ? "html" : href);
-  let position = target.offset().top;
-  $("body,html").animate({ scrollTop: position }, speed, "swing");
-  return false;
+$(document).ready(function($) {
+  $('a[href*="#"]').on('click', function(event) {
+    if (
+      location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') 
+      && location.hostname == this.hostname
+  ) {
+    var target = $(this.hash);
+    target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+    if (target.length) {
+      event.preventDefault();
+      $('html, body').animate({
+        scrollTop: target.offset().top
+      }, 300);
+      return false;
+      }
+    }
+  });
 });
 
 

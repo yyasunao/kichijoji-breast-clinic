@@ -252,6 +252,7 @@ button {
 		top: 220px;
 		border-bottom: 2px dotted #775635;
 		border-left: none;
+		max-width: 100%;
 	}
 }
 
@@ -271,6 +272,12 @@ button {
 .post-thumbnail img {
 	height: 400px;
 	object-fit: cover;
+}
+
+@media (max-width: 480px) {
+	.post-thumbnail img {
+		height: 200px;
+	}
 }
 
 .bg-b {
@@ -967,7 +974,8 @@ td {
 }
 
 .site-header .nav-menu > li.about > a:after,
-.site-header .nav-menu > li.medical > a:after { /* 下向きの矢印 */
+.site-header .nav-menu > li.medical > a:after,
+.site-header .nav-menu > li.beginner > a:after { /* 下向きの矢印 */
 	content: '';
 	display: block;
 	width: 5px;
@@ -1046,6 +1054,10 @@ td {
 		line-height: 1;
 		margin: 0 0 1em;
 	}
+}
+
+.site-header .nav-menu > li .sub-menu li.menu-item-73 {
+	display: none; /* 院内風景非表示 */
 }
 
 .site-header .nav-menu > li:hover .sub-menu li {
@@ -1225,6 +1237,10 @@ td {
 	margin: 0 0 12px;
 }
 
+.site-footer .footer-navigation .menu li li.menu-item-91 {
+	display: none; /* 院内風景非表示 */
+}
+
 .site-footer .footer-navigation .menu li li > a {
 	font-size: 1.2rem;
 }
@@ -1258,22 +1274,26 @@ td {
 
 .home .slide figcaption {
 	font-size: 3.4rem;
+	line-height: 1.4;
 	font-family: 'dnp-shuei-mgothic-std', sans-serif;
 	color: #fff;
 	display: block;
 	position: absolute;
-	top: 50%;
-	left: calc(50% - 6.5em);
-	transform: translateY(-50%);
+	bottom: 20%;
+	left: 0;
+	margin: 0;
+	width: 100%;
+	text-align: center;
+	text-shadow: 0px 0px 10px rgba(20, 20, 20, 0.9), 0px 0px 15px rgba(20, 20, 20, 1);
 }
 
 @media (max-width: 480px) {
 	.home .slide figcaption {
-		font-size: 2.2rem;
+		font-size: 2.1rem;
 	}
 }
 
-.home .slide figcaption:before {
+/*.home .slide figcaption:before {
 	content: '';
 	font-size: 3.4rem;
 	width: 100%;
@@ -1294,7 +1314,7 @@ td {
 		height: 30px;
 		opacity: .8;
 	}
-}
+}*/
 
 .home .slide img {
 	width: 100%;
@@ -1585,10 +1605,18 @@ td {
 	}
 }
 
+.about .post-thumbnail img {
+	object-position: 50% 30%;
+}
+
 @media (max-width: 480px) {
 	.about .post-thumbnail img {
-		object-position: 50% -100px;
+		object-position: 30% -70px;
 	}
+}
+
+.about .intro-blk {
+	padding: 60px 0 140px;
 }
 
 @media (max-width: 480px) {
@@ -1617,7 +1645,6 @@ td {
 
 .about .about-blk .w100,
 .about .about-blk #introduction,
-.about .about-blk #message,
 .about .about-blk #facilities {
 	width: 100%;
 }
@@ -1720,6 +1747,19 @@ td {
 	background-image: url(/newsite/wp/wp-content/uploads/2023/11/ico_about06.svg);
 }
 
+.about #message p {
+	margin: 0 0 1em;
+}
+
+.about #message p.signature {
+	text-align: right;
+}
+
+.about #message p.signature + figure {
+	width: 50%;
+	margin: 0 0 0 auto;
+}
+
 .about #prof-director .wp-block-image, 
 .about #prof-pt-doctor .wp-block-image {
 	width: 200px;
@@ -1771,6 +1811,10 @@ td {
 	line-height: 1.6;
 }
 
+.about #facilities {
+	display: none; /* 院内風景非表示 */
+}
+
 .about #facilities .facilities-blk {
 	width: 104%;
 	margin: 0 0 0 -2%;
@@ -1812,12 +1856,12 @@ td {
 }
 
 .medical .post-thumbnail img {
-	object-position: 50% 40%;
+	object-position: 50% 30%;
 }
 
 @media (max-width: 480px) {
 	.medical .post-thumbnail img {
-		object-position: 30% -70px;
+		object-position: 50% -30px;
 	}
 }
 
@@ -1840,14 +1884,14 @@ td {
 	margin: 0 0 0 20px;
 }
 
-.medical p.notes,
-.medical .notes li,
-#cost figcaption {
+.medical main p.notes,
+.medical main .notes li,
+.medical main #cost figcaption {
 	padding: 0 0 0 1.2em;
 }
-.medical p.notes:before,
-.medical .notes li:before,
-#cost figcaption:before {
+.medical main p.notes:before,
+.medical main .notes li:before,
+.medical main #cost figcaption:before {
 	content: '※';
 	display: inline-block;
 	position: absolute;
@@ -2439,7 +2483,13 @@ td {
 }
 
 .beginner .post-thumbnail img {
-	object-position: 50% 50%;
+	object-position: 50% -10px;
+}
+
+@media (max-width: 480px) {
+	.beginner .post-thumbnail img {
+		object-position: 50% 0;
+	}
 }
 
 .beginner section.bg-b .inner {
@@ -2598,6 +2648,20 @@ td {
 
 .appointment-child .first-blk {
 	padding: 90px 0;
+}
+
+.appointment-child .first-blk.complete {
+	display: none;
+}
+
+.appointment-child .first-blk.complete + section .snow-monkey-form {
+	margin: 0 0 0 126px;
+}
+
+@media (max-width: 480px) {
+	.appointment-child .first-blk.complete + section .snow-monkey-form {
+		margin: 30px 0 0;
+	}
 }
 
 .appointment main .bg-w .inner,

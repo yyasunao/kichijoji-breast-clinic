@@ -255,7 +255,7 @@ window.addEventListener('load', function () {
 			var firstBlk = parent.querySelector('.first-blk');
 
 			if (firstBlk) {
-				firstBlk.classList.add('test');
+				firstBlk.classList.add('complete');
 			}
 		}
 	}
