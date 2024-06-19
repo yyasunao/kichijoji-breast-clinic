@@ -1273,13 +1273,14 @@ td {
 }
 
 .home .slide figcaption {
-	font-size: 3.4rem;
+	font-size: 3rem;
 	line-height: 1.4;
+	letter-spacing: 0.05em;
 	font-family: 'dnp-shuei-mgothic-std', sans-serif;
 	color: #fff;
 	display: block;
 	position: absolute;
-	bottom: 20%;
+	bottom: 40%;
 	left: 0;
 	margin: 0;
 	width: 100%;
@@ -1289,7 +1290,7 @@ td {
 
 @media (max-width: 480px) {
 	.home .slide figcaption {
-		font-size: 2.1rem;
+		font-size: 1.8rem;
 	}
 }
 
@@ -1856,12 +1857,12 @@ td {
 }
 
 .medical .post-thumbnail img {
-	object-position: 50% 30%;
+	object-position: 50% 20%;
 }
 
 @media (max-width: 480px) {
 	.medical .post-thumbnail img {
-		object-position: 50% -30px;
+		object-position: 50% -20px;
 	}
 }
 
@@ -2469,7 +2470,6 @@ td {
 }
 
 
-
 /*================================================================はじめての方へ*/
 .beginner .entry-title {
 	height: 7em;
@@ -2483,7 +2483,7 @@ td {
 }
 
 .beginner .post-thumbnail img {
-	object-position: 50% -10px;
+	object-position: 50% -160px;
 }
 
 @media (max-width: 480px) {
