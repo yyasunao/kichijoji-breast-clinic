@@ -2797,7 +2797,8 @@ td {
 	font-size: 1.3rem;
 }
 
-.appointment-child .column.examination-contents {
+.appointment-child .column.examination-contents ,
+.appointment-child .column.reservation-contents {
 	margin: 30px auto 90px;
 }
 

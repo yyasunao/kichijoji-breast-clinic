@@ -192,7 +192,7 @@
 								if ( ~val.indexOf('*')) {
 									disabled = true;
 									val = val.replace(/\*/g,'');
-									val += " [予約不可]";
+									val += " [選択不可]";
 								}
 								$("*[name='" + inpuutName + "_time']").append($('<option>').html(val).val(val).prop("disabled", disabled));
 							});
@@ -248,21 +248,38 @@
 	/**
 	 * form カスタマイズ
 	 */
-	// 検診・人間ドックの内容 表示
 	$(document).on("change",'[name="request"]', function() {
-		examination_contens_dsp("slow");
+		// 検診・人間ドックの内容 表示
+		examination_contents_dsp("slow");
+
+		// 既存の予約を変更したい 表示
+		reservation_contents_dsp("slow");
 	});
 	$(window).on('load',function (){
-		examination_contens_dsp();
+		// 検診・人間ドックの内容 表示
+		examination_contents_dsp();
+
+		// 既存の予約を変更したい 表示
+		reservation_contents_dsp();
 	});
-	function examination_contens_dsp(action) {
+	function examination_contents_dsp(action) {
 		if ( "検診や人間ドックで要再検査・要精密検査の判定を受けた" == $('[name="request"]:checked').val() ) {
-			$('.examination-contens').show(action);
+			$('.examination-contents').show(action);
 		}
 		else
 		{
 			$('[name="medical-checkup[]"]').prop("checked", false);
-			$('.examination-contens').hide(action);
+			$('.examination-contents').hide(action);
+		}
+	}
+	function reservation_contents_dsp(action) {
+		if ( "既存の予約を変更したい" == $('[name="request"]:checked').val() ) {
+			$('.reservation-contents').show(action);
+		}
+		else
+		{
+			$('[name="medical-checkup[]"]').prop("checked", false);
+			$('.reservation-contents').hide(action);
 		}
 	}
 
