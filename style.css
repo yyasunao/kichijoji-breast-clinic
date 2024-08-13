@@ -1120,8 +1120,20 @@ td {
 	margin: 0 40px 20px 0;
 }
 
+@media (max-width: 480px) {
+	.site-header .nav-menu > li:hover .sub-menu li {
+		margin: 0 0 1em;
+	}
+}
+
 .site-header .nav-menu > li:hover .sub-menu a {
 	font-size: 1.8rem;
+}
+
+@media (max-width: 480px) {
+	.site-header .nav-menu > li:hover .sub-menu a {
+		font-size: 1.6rem;
+	}
 }
 
 .site-header .nav-menu > li:hover .sub-menu a:before {
@@ -2807,6 +2819,10 @@ td {
 		width: 100%;
 		margin: 0 0 40px;
 	}
+}
+
+.appointment .first-blk .lead p:nth-of-type(1) {
+	margin: 0 0 1em;
 }
 
 .appointment .first-blk a[href='tel:0422-23-7600'] {
