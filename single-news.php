@@ -50,7 +50,7 @@ get_header();
 
 		<?php get_template_part( 'file/fixed-menu' );?>
 		
-		<p class="page-top"><img src="/breast-clinic/wp-content/uploads/2023/12/arrow_flow.svg" alt=""></p>
+		<p class="page-top"><img src="/newsite/wp/wp-content/uploads/2023/12/arrow_pagetop.svg" alt=""></p>
 	</main><!-- #main -->
 
 <?php

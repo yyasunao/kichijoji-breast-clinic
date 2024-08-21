@@ -1,21 +1,47 @@
 $(document).ready(function($) {
+  // ページ読み込み時にURLに#が含まれている場合にアンカーにスクロール
+  if (window.location.hash) {
+    var target = $(window.location.hash);
+    if (target.length) {
+      // デバイスの横幅に応じたオフセットを設定
+      var offset = $(window).width() <= 480 ? 120 : 40;
+
+      $('html, body').animate({
+        scrollTop: target.offset().top - offset
+      }, 300, function() {
+        // アンカーを削除するためにhistory.replaceStateを使用
+        history.replaceState(null, null, window.location.pathname);
+      });
+    }
+  }
+
   $('a[href*="#"]').on('click', function(event) {
     if (
       location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') 
       && location.hostname == this.hostname
-  ) {
-    var target = $(this.hash);
-    target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
-    if (target.length) {
-      event.preventDefault();
-      $('html, body').animate({
-        scrollTop: target.offset().top
-      }, 300);
-      return false;
+    ) {
+      var target = $(this.hash);
+      target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+      if (target.length) {
+        event.preventDefault();
+
+        // デバイスの横幅に応じたオフセットを設定
+        var offset = $(window).width() <= 480 ? 120 : 40;
+
+        $('html, body').animate({
+          scrollTop: target.offset().top - offset
+        }, 300, function() {
+          // アンカーを削除するためにhistory.replaceStateを使用
+          history.replaceState(null, null, window.location.pathname);
+        });
+        return false;
       }
     }
   });
 });
+
+
+
 
 
 
