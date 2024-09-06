@@ -87,6 +87,9 @@ function replace_post_data($data, $postarr){
 			$set_date = $_POST['acf']['field_5819a92cef2d7'];
 			if ( $data['post_status'] != 'trash' ) {
 				$data['post_status'] ="publish";
+				//日付と投稿日時の同期
+				$data['post_date'] = date_i18n( 'Y-m-d 00:00:00', strtotime($set_date) );
+				$data['post_date_gmt'] = date( 'Y-m-d 00:00:00', strtotime($set_date) );
 			}
 
 			//過去の同じ日付設定を削除
