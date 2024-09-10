@@ -76,6 +76,25 @@ function set_date_register_sortable( $sortable_column ) {
 }
 add_filter( 'manage_edit-reception_sortable_columns', 'set_date_register_sortable' );
 
+/**
+ * 管理画面 日付別予約受付一覧 デフォルト昇順
+ *
+ * @param [type] $wp_query
+ * @return void
+ */
+function add_pre_get_posts($wp_query) {
+	if( is_admin() ) {
+		$post_type = $wp_query->query['post_type'];
+		if( $post_type == 'reception' && ! isset( $_GET["orderby"] ) ) { // 投稿タイプ名
+			$wp_query->set('meta_key', 'set_date');
+			$wp_query->set('orderby', 'meta_value'); // 並び順を指定
+			//   $wp_query->set('order', 'DESC'); // 降順（デフォルト） = 3 → 2 → 1
+			$wp_query->set('order', 'ASC'); // 昇順 = 1 → 2 → 3
+		}
+	}
+}
+add_filter('pre_get_posts', 'add_pre_get_posts');
+
 //保存時処理
 function replace_post_data($data, $postarr){
 	global $post;
@@ -316,22 +335,3 @@ function my_admin_javascript(){
 	endif;
 }
 add_action('admin_print_footer_scripts', 'my_admin_javascript');
-
-/**
- * 管理画面 日付別予約受付一覧 デフォルト昇順
- *
- * @param [type] $wp_query
- * @return void
- */
-function add_pre_get_posts($wp_query) {
-	if( is_admin() ) {
-		$post_type = $wp_query->query['post_type'];
-		if($post_type == 'reception') { // 投稿タイプ名
-			$wp_query->set('meta_key', 'set_date');
-			$wp_query->set('orderby', 'meta_value'); // 並び順を指定
-			//   $wp_query->set('order', 'DESC'); // 降順（デフォルト） = 3 → 2 → 1
-			$wp_query->set('order', 'ASC'); // 昇順 = 1 → 2 → 3
-		}
-	}
-}
-add_filter('pre_get_posts', 'add_pre_get_posts');
