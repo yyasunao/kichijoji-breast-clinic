@@ -3625,12 +3625,16 @@ td {
 	font-size: 1.3rem;
 }
 /*ここまで削除*/
-.test {
+
+
+
+
+.closed {
 	overflow: hidden;
 }
 
 
-.test:after {
+.closed:after {
 	content: '';
 	width: 100vw;
 	height: 100vh;
@@ -3644,7 +3648,7 @@ td {
 
 
 
-.modal {
+.closed .modal {
 	width: 90%;
 	max-width: 870px;
 	border-radius: 10px;
@@ -3658,33 +3662,29 @@ td {
 }
 
 @media (max-width: 480px) {
-	.modal {
+	.closed .modal {
 		padding: 40px 30px;
 	}
 }
 
-.fancybox-slide--html .fancybox-close-small {
-	display: none;
-}
-
-.modal h2 {
+.closed .modal h2 {
 	font-size: 2.2rem;
 	line-height: 1.5;
 	margin: 0 0 60px;
 }
 
-.modal p {
+.closed .modal p {
 	font-size: 1.8rem;
 	line-height: 2;
 }
 
 @media (max-width: 480px) {
-	.modal h2 {
+	.closed .modal h2 {
 		font-size: 2rem;
 		margin: 0 0 40px;
 	}
 
-	.modal p {
+	.closed .modal p {
 		font-size: 1.6rem;
 	}
 }

@@ -269,3 +269,80 @@ EOD;
 	},
 	11
 );
+
+
+
+
+
+//休診期間にだけモーダルを表示しbodyにclosedクラスを付与
+// モーダルとクラス追加のショートコード
+function display_closure_notice() {
+    ob_start(); // バッファリング開始
+
+    // ACF フィールドからデータを取得
+    $notice_start = get_field('notice-start', 'option');
+    $notice_end = get_field('notice-end', 'option');
+    $closed_start = get_field('closed-start', 'option');
+    $closed_start_dw = get_field('closed-start-dw', 'option');
+    $closed_end = get_field('closed-end', 'option');
+    $closed_end_dw = get_field('closed-end-dw', 'option');
+    $medical_start = get_field('medical-start', 'option');
+    $medical_start_dw = get_field('medical-start-dw', 'option');
+
+    // 現在の日時を取得（タイムゾーンを指定）
+    $current_datetime = new DateTime('now', new DateTimeZone('Asia/Tokyo'));
+
+    // ACF フィールドの日時を DateTime オブジェクトに変換
+    $notice_start_datetime = DateTime::createFromFormat('Ymd H:i:s', $notice_start, new DateTimeZone('Asia/Tokyo'));
+    $notice_end_datetime = DateTime::createFromFormat('Ymd H:i:s', $notice_end, new DateTimeZone('Asia/Tokyo'));
+
+    // 現在の日時が表示期間内かチェック
+    if ($notice_start_datetime && $notice_end_datetime) {
+        if ($current_datetime >= $notice_start_datetime && $current_datetime <= $notice_end_datetime) {
+            ?>
+            <div class="modal">
+                <h2><?php echo esc_html($closed_start); ?>（<?php echo esc_html($closed_start_dw); ?>）〜<?php echo esc_html($closed_end); ?>（<?php echo esc_html($closed_end_dw); ?>）は休診とさせていただきます。<br>
+                <?php echo esc_html($medical_start); ?>（<?php echo esc_html($medical_start_dw); ?>）より通常通り診療いたします。</h2>
+                <p>休診期間中は、Webからのご予約にすぐにお返事することができずご迷惑、ご不便をおかけするため、Webからのご予約を一時休止させていただいております。<br>
+                <?php echo esc_html($closed_end); ?>（<?php echo esc_html($closed_end_dw); ?>）中には、Webからのご予約を再開する予定です。<br>
+                ご迷惑をおかけいたしますが、ご理解のほどどうぞよろしくお願いいたします。</p>
+            </div>
+            <?php
+        }
+    }
+
+    return ob_get_clean(); // バッファリングされた内容を返す
+}
+add_shortcode('closure_notice', 'display_closure_notice');
+
+// body クラスの追加
+function add_body_class_for_closure($classes) {
+    // ACF フィールドからデータを取得
+    $notice_start = get_field('notice-start', 'option');
+    $notice_end = get_field('notice-end', 'option');
+
+    // 現在の日時を取得（タイムゾーンを指定）
+    $current_datetime = new DateTime('now', new DateTimeZone('Asia/Tokyo'));
+
+    // ACF フィールドの日時を DateTime オブジェクトに変換
+    $notice_start_datetime = DateTime::createFromFormat('Ymd H:i:s', $notice_start, new DateTimeZone('Asia/Tokyo'));
+    $notice_end_datetime = DateTime::createFromFormat('Ymd H:i:s', $notice_end, new DateTimeZone('Asia/Tokyo'));
+
+    // 現在の日時が表示期間内かチェック
+    if ($notice_start_datetime && $notice_end_datetime) {
+        if ($current_datetime >= $notice_start_datetime && $current_datetime <= $notice_end_datetime) {
+            // 現在の日時が表示期間内の場合、'closed' クラスを追加
+            $classes[] = 'closed';
+        }
+    }
+
+    return $classes;
+}
+add_filter('body_class', 'add_body_class_for_closure');
+
+
+
+
+
+
+
