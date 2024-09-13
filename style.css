@@ -3628,11 +3628,14 @@ td {
 
 
 
-
+.appointment.closed,
+.appointment-child.closed,
 .test.closed {
 	overflow: hidden;
 }
 
+.appointment.closed:after,
+.appointment-child.closed:after,
 .test.closed:after {
 	content: '';
 	width: 100vw;
@@ -3645,6 +3648,8 @@ td {
 	z-index: 20;
 }
 
+.appointment.closed .modal,
+.appointment-child.closed .modal,
 .test.closed .modal {
 	width: 90%;
 	max-width: 870px;
@@ -3659,32 +3664,43 @@ td {
 }
 
 @media (max-width: 480px) {
+	.appointment.closed .modal,
+	.appointment-child.closed .modal,
 	.test.closed .modal {
 		padding: 40px 30px;
 	}
 }
 
+.appointment.closed .modal h2,
+.appointment-child.closed .modal h2,
 .test.closed .modal h2 {
 	font-size: 2.2rem;
 	line-height: 1.5;
 	margin: 0 0 60px;
 }
 
+.appointment.closed .modal p,
+.appointment-child.closed .modal p,
 .test.closed .modal p {
 	font-size: 1.8rem;
 	line-height: 2;
 }
 
 @media (max-width: 480px) {
+	.appointment.closed .modal h2,
+	.appointment-child.closed .modal h2,
 	.test.closed .modal h2 {
 		font-size: 2rem;
 		margin: 0 0 40px;
 	}
 
+	.appointment.closed .modal p,
+	.appointment-child.closed .modal p,
 	.test.closed .modal p {
 		font-size: 1.6rem;
 	}
 }
+
 
 /*================================================================予約フォームカレンダー*/
 .ui-corner-all, .ui-corner-bottom, .ui-corner-right, .ui-corner-br {border-radius: 0 !important;}
