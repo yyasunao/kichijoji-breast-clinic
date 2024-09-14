@@ -306,6 +306,7 @@ function display_closure_notice() {
                 <p>休診期間中は、Webからのご予約にすぐにお返事することができずご迷惑、ご不便をおかけするため、Webからのご予約を一時休止させていただいております。<br>
                 <?php echo esc_html($closed_end); ?>（<?php echo esc_html($closed_end_dw); ?>）中には、Webからのご予約を再開する予定です。<br>
                 ご迷惑をおかけいたしますが、ご理解のほどどうぞよろしくお願いいたします。</p>
+                <p class="btn"><a href="/">サイトトップに戻る</a></p>
             </div>
             <?php
         }

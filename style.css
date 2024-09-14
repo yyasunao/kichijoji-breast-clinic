@@ -3667,7 +3667,7 @@ td {
 	.appointment.closed .modal,
 	.appointment-child.closed .modal,
 	.test.closed .modal {
-		padding: 40px 30px;
+		padding: 30px;
 	}
 }
 
@@ -3676,7 +3676,7 @@ td {
 .test.closed .modal h2 {
 	font-size: 2.2rem;
 	line-height: 1.5;
-	margin: 0 0 60px;
+	margin: 0 0 40px;
 }
 
 .appointment.closed .modal p,
@@ -3691,13 +3691,28 @@ td {
 	.appointment-child.closed .modal h2,
 	.test.closed .modal h2 {
 		font-size: 2rem;
-		margin: 0 0 40px;
+		margin: 0 0 30px;
 	}
 
 	.appointment.closed .modal p,
 	.appointment-child.closed .modal p,
 	.test.closed .modal p {
 		font-size: 1.6rem;
+	}
+}
+
+.appointment.closed .modal p.btn,
+.appointment-child.closed .modal p.btn,
+.test.closed .modal p.btn {
+	margin: 40px 0 0;
+	text-align: right;
+}
+
+@media (max-width: 480px) {
+	.appointment.closed .modal p.btn,
+	.appointment-child.closed .modal p.btn,
+	.test.closed .modal p.btn {
+		margin: 30px 0 0;
 	}
 }
 
