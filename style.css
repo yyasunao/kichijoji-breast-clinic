@@ -2510,7 +2510,7 @@ td {
 	left: calc(50% - 540px);
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1200px) {
 	.news.single .cat-title {
 		left: 5%;
 	}
