@@ -3296,6 +3296,10 @@ td {
 	margin: 0 auto;
 }
 
+.smf-form .smf-select-control__control {
+	border: none;
+}
+
 .appointment-child .ui-datepicker table {
 	border-top: 1px solid #fff;
 }
@@ -3322,31 +3326,6 @@ td {
 .wp-block-columns:not(.is-not-stacked-on-mobile)>.wp-block-column {
 	flex-grow: 1 !important;
 }
-
-
-
-
-
-
-
-/*.appointment-child .first-blk {
-	padding: 90px 0;
-	display: none;
-}*/
-
-/*.appointment-child .first-blk.complete {
-	display: none;
-}
-
-.appointment-child .first-blk.complete + section .snow-monkey-form {
-	margin: 0 0 0 126px;
-}
-
-@media (max-width: 480px) {
-	.appointment-child .first-blk.complete + section .snow-monkey-form {
-		margin: 30px 0 0;
-	}
-}*/
 
 .appointment-child .first-blk.complete:after {
 	width: 100%;
@@ -3543,100 +3522,13 @@ td {
 
 
 /*================================================================休診のお知らせ*/
-.test .post-thumbnail img {
-	object-position: 50% -50px;
-}
-
-.test .entry-title {
-	height: 10em;
-}
-
-.test main .bg-w .inner {
-	padding: 0 0 0 200px;
-}
-
-.test .first-blk .lead p:nth-of-type(1) {
-	margin: 0 0 1em;
-}
-
-.test .first-blk a[href='tel:0422-23-7600'] {
-	font-size: 2.4rem;
-}
-
-.test .first-blk .btn {
-	width: 450px;
-	max-width: 100%;
-}
-
-.test .first-blk .btn.first {
-	margin: 50px 0;
-}
-
-.test .first-blk .btn .wp-block-button {
-	width: 100%;
-}
-
-.test .first-blk .btn .wp-block-buttons {
-	margin: 0 0 10px;
-}
-
-.test .first-blk .btn a {
-	display: flex;
-	justify-content: flex-start;
-	align-items: center;
-	height: 80px;
-	border: 3px solid #8DC21F;
-	border-radius: 10px;
-	font-size: 2.8rem;
-	font-family: 'dnp-shuei-mgothic-std', sans-serif;
-	font-weight: 600;
-	color: #8DC21F;
-	padding: 0 0 0 30px;
-}
-
-.test .first-blk .btn a:after {
-	content: '';
-	width: 64px;
-	height: 70px;
-	display: block;
-	background-position: center bottom;
-	background-repeat: no-repeat;
-	background-size: contain;
-	position: absolute;
-	right: 20px;
-	bottom: -1px;
-}
-
-.test .first-blk .btn.first a:after {
-	background-image: url(/newsite/wp/wp-content/uploads/2024/03/ico_btn_first.svg);
-}
-
-
-.test .first-blk .btn.revisit a:after {
-	background-image: url(/newsite/wp/wp-content/uploads/2024/03/ico_btn_revisit.svg);
-}
-
-.test .first-blk .notes {
-	text-align: center;
-	line-height: 1.4;
-}
-
-.test .first-blk .notes span {
-	font-size: 1.3rem;
-}
-/*ここまで削除*/
-
-
-
 .appointment.closed,
-.appointment-child.closed,
-.test.closed {
+.appointment-child.closed {
 	overflow: hidden;
 }
 
 .appointment.closed:after,
-.appointment-child.closed:after,
-.test.closed:after {
+.appointment-child.closed:after {
 	content: '';
 	width: 100vw;
 	height: 100vh;
@@ -3649,8 +3541,7 @@ td {
 }
 
 .appointment.closed .modal,
-.appointment-child.closed .modal,
-.test.closed .modal {
+.appointment-child.closed .modal {
 	width: 90%;
 	max-width: 870px;
 	border-radius: 10px;
@@ -3665,53 +3556,46 @@ td {
 
 @media (max-width: 480px) {
 	.appointment.closed .modal,
-	.appointment-child.closed .modal,
-	.test.closed .modal {
+	.appointment-child.closed .modal {
 		padding: 30px;
 	}
 }
 
 .appointment.closed .modal h2,
-.appointment-child.closed .modal h2,
-.test.closed .modal h2 {
+.appointment-child.closed .modal h2 {
 	font-size: 2.2rem;
 	line-height: 1.5;
 	margin: 0 0 40px;
 }
 
 .appointment.closed .modal p,
-.appointment-child.closed .modal p,
-.test.closed .modal p {
+.appointment-child.closed .modal p {
 	font-size: 1.8rem;
 	line-height: 2;
 }
 
 @media (max-width: 480px) {
 	.appointment.closed .modal h2,
-	.appointment-child.closed .modal h2,
-	.test.closed .modal h2 {
+	.appointment-child.closed .modal h2 {
 		font-size: 2rem;
 		margin: 0 0 30px;
 	}
 
 	.appointment.closed .modal p,
-	.appointment-child.closed .modal p,
-	.test.closed .modal p {
+	.appointment-child.closed .modal p {
 		font-size: 1.6rem;
 	}
 }
 
 .appointment.closed .modal p.btn,
-.appointment-child.closed .modal p.btn,
-.test.closed .modal p.btn {
+.appointment-child.closed .modal p.btn {
 	margin: 40px 0 0;
 	text-align: right;
 }
 
 @media (max-width: 480px) {
 	.appointment.closed .modal p.btn,
-	.appointment-child.closed .modal p.btn,
-	.test.closed .modal p.btn {
+	.appointment-child.closed .modal p.btn {
 		margin: 30px 0 0;
 	}
 }
