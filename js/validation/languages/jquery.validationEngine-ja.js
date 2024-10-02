@@ -183,7 +183,7 @@
                             return true;
                         }
                     },
-                    // "alertText": "* 同日同時刻を２回以上選択することはできません。"
+                    "alertText": ""
                 },
                 "samechara": {
                     "func": function(id){
