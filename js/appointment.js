@@ -65,6 +65,46 @@
 		date_set();
 	});
 
+	// 時間選択監視
+	let select_time = {};
+	$(document).on('change input', '.time', function() {
+		var time = $(this).val();
+		var inpuutName = $(this).attr('name');
+		select_time[inpuutName] = time;
+	});
+
+	// snow monkey バリデーション監視
+	$ (document).ready(function () {
+		let observer = new MutationObserver(function (mutations) {
+			mutations.forEach(function (mutation) {
+				if ($(mutation.target).find(".smf-error-messages").length) {
+					$(".datepicker").each(function(key){
+						var date = $(this).val();
+						var inpuutName = $(this).attr('name');
+
+						// エラー時に時刻読み込み
+						time_set(date, inpuutName);
+						date_set();
+						// 読み込みselected処理
+						$(document).ajaxComplete(function (event, xhr, settings) {
+							if ( settings.url.indexOf('time_set.php') != -1) {
+
+								$.each(select_time, function(inpuutName, value) {
+									$("*[name=" + inpuutName + "]").val(value);
+								});
+
+							}
+						});
+					});
+				}
+			});
+		});
+
+		$(".snow-monkey-form").each(function () {
+			observer.observe(this, { childList: true, subtree: true });
+		});
+	});
+
 	//予約可能時間取得
 	$(document).on('change input', '.datepicker', function() {
 		var date = $(this).val();

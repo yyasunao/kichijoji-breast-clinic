@@ -38,7 +38,7 @@ function reception_init() {
 			'hierarchical'          => false,
 			'show_ui'               => true,
 			'show_in_nav_menus'     => true,
-			'supports'              => [],
+			'supports'              => ['revisions'],
 			'has_archive'           => true,
 			'rewrite'               => true,
 			'query_var'             => true,
