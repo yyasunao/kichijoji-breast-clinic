@@ -171,7 +171,7 @@ function kichijoji_breast_clinic_scripts() {
 	$get_page = get_page_by_path( "appointment" );
 	$get_page_id = $get_page->ID;
 	if( $get_page_id == $post->post_parent ) {
-		wp_enqueue_script( 'kichijoji-breast-clinic-appointment', get_template_directory_uri() . '/js/appointment.js', array('jquery'), '1.1', true );
+		wp_enqueue_script( 'kichijoji-breast-clinic-appointment', get_template_directory_uri() . '/js/appointment.js', array('jquery'), '1.2', true );
 		wp_localize_script(
 			'kichijoji-breast-clinic-appointment',
 			'kbc_localize_data',
