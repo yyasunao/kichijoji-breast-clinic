@@ -103,6 +103,11 @@ function kichijoji_breast_clinic_setup() {
 add_action( 'after_setup_theme', 'kichijoji_breast_clinic_setup' );
 
 /**
+ * auto update invalid
+ */
+add_filter( 'automatic_updater_disabled', '__return_true' );
+
+/**
  * Admin style
  */
 function kichijoji_breast_clinic_child_add_admin_style(){
